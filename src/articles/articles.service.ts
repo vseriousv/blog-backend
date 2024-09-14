@@ -1,34 +1,96 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { ArticleDto } from './dto/artcile.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ArticleEntity } from '../shared/models/article.entity';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../shared/models/user.entity';
+import { UpdateArticleDto } from './dto/update-article.dto';
 
 @Injectable()
 export class ArticlesService {
-  create(data: CreateArticleDto) {
-    const article = new ArticleDto();
+  constructor(
+    @InjectRepository(ArticleEntity)
+    private readonly articleRepo: Repository<ArticleEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepo: Repository<UserEntity>,
+  ) {}
+
+  async create(data: CreateArticleDto) {
+    const user = await this.userRepo
+      .findOne({
+        where: {
+          id: 1,
+        },
+      })
+      .catch((e) => {
+        console.log(e);
+        return null;
+      });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const article = new ArticleEntity();
     article.title = data.title;
     article.text = data.text;
     article.description = data.description;
     article.tags = data.tags;
-    article.createdAt = new Date();
-    article.updatedAt = new Date();
+    article.author = user;
 
-    return article;
+    const res = await article.save();
+
+    return new ArticleDto(res);
   }
 
-  getList() {
-    console.log('Getting list of articles');
+  async getList() {
+    const articles = await this.articleRepo.find().catch((e) => {
+      console.log(e);
+      return [];
+    });
+
+    return articles.map((item) => new ArticleDto(item));
   }
 
-  getById(id: number) {
-    console.log(`Getting article by id: ${id}`);
+  async getById(id: number) {
+    const article = await this.articleRepo
+      .findOne({
+        where: {
+          id,
+        },
+      })
+      .catch((e) => {
+        console.log(e);
+        return null;
+      });
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return new ArticleDto(article);
   }
 
-  updateById(id: number) {
-    console.log(`Update article by id: ${id}`);
+  async updateById(id: number, data: UpdateArticleDto) {
+    await this.articleRepo
+      .update(
+        { id },
+        {
+          title: data.title,
+          text: data.text,
+          description: data.description,
+          tags: data.tags,
+        },
+      )
+      .catch((e) => {
+        console.log(e);
+      });
+
+    return await this.getById(id);
   }
 
-  deleteById(id: number) {
-    console.log(`Delete article by id: ${id}`);
+  async deleteById(id: number) {
+    await this.articleRepo.delete(id);
   }
 }
