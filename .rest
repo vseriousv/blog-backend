@@ -1,0 +1,63 @@
+### Create article
+POST http://localhost:3000/articles
+Content-Type:  application/json
+
+{
+  "title": "Three article",
+  "text": "Simple second text",
+  "description": "simple second",
+  "tags": "second, simple"
+}
+
+### Get article list
+GET http://localhost:3000/articles
+
+### Get article by id
+GET http://localhost:3000/articles/1
+
+### Update article by id
+PUT http://localhost:3000/articles/1
+Content-Type:  application/json
+
+{
+  "title": "Change First article",
+  "text": "Hard text",
+  "description": "hard first",
+  "tags": "first, hard"
+}
+
+### Delete article by id
+DELETE http://localhost:3000/articles/3
+
+
+### SignUp
+POST http://localhost:3000/auth/sign-up
+Content-Type: application/json
+
+{
+  "name": "Kirill Gavrilov",
+  "email": "admin@gavrilovlog.me",
+  "password": "Social123"
+}
+
+### SignIn
+POST http://localhost:3000/auth/sign-in
+Content-Type: application/json
+
+{
+  "email" : "kirill@gavrilovlog.me",
+  "password" : "Social123"
+}
+
+### RefreshToken
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+  "token": "ZaQIEXIuGcdCsKJRlNYikDszUpESV28cuTZQ-eHJD9nzswCeYAqzGkGy8NbOOIf4"
+}
+
+
+### GetMe
+GET http://localhost:3000/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IktpcmlsbCIsImVtYWlsIjoia2lyaWxsQGdhdnJpbG92bG9nLm1lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwODAxNjE1LCJleHAiOjE3NjA4MDIyMTV9.SY9gcGbsBoTTH3ql4opLEcB7Mcq3dqWddAwhGGMTTNc
