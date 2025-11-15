@@ -1,9 +1,10 @@
 ### Create article
 POST http://localhost:3000/articles
 Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IlNpbXBsZSBVc2VyIiwiZW1haWwiOiJzaW1wbGVAdXNlci5tZSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYzMjI5MjU1LCJleHAiOjE3NjMyMjk4NTV9.4dLjHikYwVnA-ozLbjKJ7TjkXjHq4pwvtnnCN8bPuSg
 
 {
-  "title": "Three article",
+  "title": "4 article",
   "text": "Simple second text",
   "description": "simple second",
   "tags": "second, simple"
@@ -45,7 +46,7 @@ POST http://localhost:3000/auth/sign-in
 Content-Type: application/json
 
 {
-  "email" : "kirill@gavrilovlog.me",
+  "email" : "simple@user.me",
   "password" : "Social123"
 }
 
@@ -60,4 +61,4 @@ Content-Type: application/json
 
 ### GetMe
 GET http://localhost:3000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IktpcmlsbCIsImVtYWlsIjoia2lyaWxsQGdhdnJpbG92bG9nLm1lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwODAxNjE1LCJleHAiOjE3NjA4MDIyMTV9.SY9gcGbsBoTTH3ql4opLEcB7Mcq3dqWddAwhGGMTTNc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IktpcmlsbCBHYXZyaWxvdiIsImVtYWlsIjoiYWRtaW5AZ2F2cmlsb3Zsb2cubWUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjMyMjkxOTQsImV4cCI6MTc2MzIyOTc5NH0.7Snf-Gox2zXXA_AjajVfqx4tMzo_Aw85iIZRxHMgAI4
